@@ -1,0 +1,28 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  line-height: 1.2rem;
+}
+.Results {
+  padding: 0;
+  max-width: 45rem;
+}
+.Results li {
+  list-style: none;
+  padding: 1rem;
+  background: #dbdbdb;
+  margin-bottom: 1rem;
+}
+.Results h3 {
+  margin: .25rem 0;
+  font-size: 1.1rem;
+}
+.Presentation {
+  margin: 0;
+}
+.Address {
+  margin: .25rem 0;
+  font-size: .75rem;
+}
