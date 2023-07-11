@@ -8,16 +8,22 @@ body {
 .Results {
   padding: 0;
   max-width: 45rem;
+  margin: 2rem 0;
 }
-.Results li {
+.Item {
   list-style: none;
   padding: 1rem;
-  background: #dbdbdb;
+  border: 5px solid #efefef;
+  background: #fbfbfb;
   margin-bottom: 1rem;
+  border-radius: .75rem;
 }
-.Results h3 {
-  margin: .25rem 0;
-  font-size: 1.1rem;
+.Item summary {
+  margin: .5rem 0; 
+}
+.Item h3 {
+  font-size: 1rem;
+  display: inline;
 }
 .Presentation {
   margin: 0;

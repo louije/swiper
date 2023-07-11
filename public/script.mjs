@@ -40,12 +40,17 @@ class App {
   }
   template(hit) {
     let presentation = (hit.presentation_resume && hit.presentation_resume.trim.length) ? hit.presentation_resume : hit.presentation_detail;
+    let link = (hit.lien_source) ? `<a href="${hit.lien_source}">${hit.nom}</a>` : hit.nom;
     return `
-      <li>
-        <h3>${hit.nom}</h3>
-        <p class="Presentation">${presentation || ""}</p>
+      <details class="Item">
+        <summary>
+          <h3>
+            ${link}
+          </h3>
+        </summary>
         <p class="Address">${hit.address || ""}  ${hit.commune || ""}</p>
-      </li>
+        <p class="Presentation">${presentation || ""}</p>
+      </details>
     `;
   }
 }
