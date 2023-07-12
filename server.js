@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import express from "express";
 import { search, command } from "./search.js";
-import { buildAll } from "./build-search-index.js";
+import { buildAll } from "./indexing.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -28,8 +28,9 @@ app.get("/search/", async (request, response) => {
     [lat, lng] = coords.split(",");
   }
   const options = (lat && lng) ? { lat, lng } : {};
-  const results = await search(q, options);
-  response.json(results);
+  const { results, error } = await search(q, options);
+    
+  response.json({ results, error });
 });
 
 const listener = app.listen(process.env.PORT || 3000, () => {

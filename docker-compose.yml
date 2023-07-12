@@ -1,0 +1,25 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .environment/development/web
+    networks:
+      - default
+
+  search:
+    image: getmeili/meilisearch:v1.2
+    ports:
+      - "7700:7700"
+    networks:
+      - default
+    environment:
+      - MEILI_HTTP_PAYLOAD_SIZE_LIMIT=300MB
+    volumes:
+      - meili_data:/meili_data
+      
+volumes:
+  meili_data:

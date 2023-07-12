@@ -1,15 +1,18 @@
 import { MeiliSearch } from "meilisearch";
 
-const apiKey = process.env.MS_ADMIN_KEY;
-const client = new MeiliSearch({ host: "http://localhost:7700", apiKey });
+const client = new MeiliSearch({ host: "http://search:7700" });
 
 export async function search(query, coords) {
   let options = {};
   if (coords && coords.lat && coords.lng) {
     options.filter = [`_geoRadius(${coords.lat}, ${coords.lng}, 10000)`];
   }
-  const results = await client.index("data").search(query, options);
-  return results;
+  try {
+    const results = await client.index("data").search(query, options);
+    return { results };
+  } catch (error) {
+    return { error };
+  }
 }
 
 export async function command(query) {

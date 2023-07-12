@@ -29,9 +29,13 @@ class App {
   }
   async search(query, { lat, lng }) {
     const req = `/search?q=${encodeURIComponent(query)}&coords=${lat},${lng}`;
-    const results = await fetch(req);
-    const data = await results.json();
-    this.render(data);
+    const res = await fetch(req);
+    const { results, error } = await res.json();
+    if (error) {
+      console.error("Server error:", error);
+      return;
+    }
+    this.render(results);
   }
   render(data) {
     const items = data.hits.map(h => this.template(h));
