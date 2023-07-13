@@ -3,3 +3,4 @@
 .env
 .environment
 .DS_Store
+public/instant.html
