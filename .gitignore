@@ -1,4 +1,5 @@
-/data
+/data/*
+!/data/combined-data-inclusion.json
 /node_modules
 .env
 .environment
