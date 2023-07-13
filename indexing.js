@@ -1,5 +1,5 @@
+import fs from "node:fs/promises";
 import { MeiliSearch } from "meilisearch";
-import data from "./data/combined-data-inclusion.json" assert { type: 'json' };
 
 export async function deleteAll() {
   try {
@@ -13,6 +13,17 @@ export async function deleteAll() {
 }
 
 export async function buildAll() {
+  let data;
+  try {
+    const path = "./data/combined-data-inclusion.json";
+    const fileData = await fs.readFile(path);
+    data = JSON.parse(fileData);
+  } catch (e) {
+    console.error("Coulnd't read data file", e);
+  }
+  if (!data) {
+    return;
+  }
   try {
     const client = new MeiliSearch({ host: "http://search:7700" });
     await client.createIndex("data", { primaryKey: "_di_surrogate_id" });
@@ -36,7 +47,6 @@ export async function buildAll() {
       "thematiques",
       "typologie",
     ]);
-    
     const index = await client.index("data").addDocuments(data);
 
     console.log("...indexing...");

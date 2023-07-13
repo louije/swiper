@@ -17,7 +17,7 @@ services:
     networks:
       - default
     environment:
-      - MEILI_HTTP_PAYLOAD_SIZE_LIMIT=300MB
+      - MEILI_HTTP_PAYLOAD_SIZE_LIMIT=500MB
     volumes:
       - meili_data:/meili_data
       

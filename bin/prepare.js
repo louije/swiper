@@ -53,6 +53,7 @@ services.forEach(service => {
     obj[`s_${k}`] = service[k];
     return obj;
   }, {});
+
   if (key in serviceDict) {
     serviceDict[key].push(s);
   } else {
@@ -68,4 +69,4 @@ combined.forEach(structure => {
 
 fs.writeFileSync(join(__dirname, "../data/services.json"), JSON.stringify(services));
 fs.writeFileSync(join(__dirname, "../data/structures.json"), JSON.stringify(structures));
-fs.writeFileSync(join(__dirname, "../data/combined-data-inclusion.json"), JSON.stringify(combined, null, 2));
+fs.writeFileSync(join(__dirname, "../data/combined-data-inclusion.json"), JSON.stringify(combined));
