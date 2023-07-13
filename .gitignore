@@ -1,5 +1,4 @@
-/data/services*
-/data/structures*
+/data
 /node_modules
 .env
 .environment
