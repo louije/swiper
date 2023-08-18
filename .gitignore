@@ -5,3 +5,5 @@
 .environment
 .DS_Store
 public/instant.html
+dumps
+data.ms

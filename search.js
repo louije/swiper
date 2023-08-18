@@ -1,6 +1,6 @@
 import { MeiliSearch } from "meilisearch";
 
-const client = new MeiliSearch({ host: "http://search:7700" });
+const client = new MeiliSearch({ host: process.env.MS_ADDRESS });
 
 export async function search(query, coords) {
   let options = {};
@@ -16,24 +16,12 @@ export async function search(query, coords) {
 }
 
 export async function command(query) {
-  return await client.index("data").updateDisplayedAttributes([
-  "nom",
-  "presentation_detail",
-  "presentation_resume",
-  "_geo",
-  "accessibilite",
-  "adresse",
-  "code_postal",
-  "commune",
-  "complement_adresse",
-  "courriel",
-  "date_maj",
-  "labels_autres",
-  "labels_nationaux",
-  "lien_source",
-  "site_web",
-  "telephone",
-  "thematiques",
-  "typologie",
-]);
+  return { nothing: null }
+  // return await client.index("data").updateFilterableAttributes([
+  //   "_geo",
+  //   "code_postal",
+  //   "commune",
+  //   "thematiques",
+  //   "typologie",
+  // ]);
 }

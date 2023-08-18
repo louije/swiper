@@ -1,7 +1,7 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import express from "express";
 import { search, command } from "./search.js";
-import { buildAll } from "./indexing.js";
+import { buildAll } from "./lib/indexData.js";
 
 const app = express();
 app.use(express.static("public"));

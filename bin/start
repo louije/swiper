@@ -1,0 +1,9 @@
+#! /bin/bash
+NETWORK_NAME="swiper"
+docker network inspect $NETWORK_NAME >/dev/null 2>&1 || docker network create $NETWORK_NAME
+
+docker run --rm -d -p 7700:7700 --network=$NETWORK_NAME --name=search                   louije/swiper-search
+docker run --rm -d -p 3000:3000 --network=$NETWORK_NAME --name=web    -v .:/usr/src/app louije/swiper
+
+docker logs -f search &
+docker logs -f web
