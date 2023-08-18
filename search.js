@@ -4,7 +4,8 @@ const apiKey = process.env.MEILI_MASTER_KEY;
 
 export async function search(query, coords) {
   const client = new MeiliSearch({ host: process.env.MEILI_URL, apiKey });
-  
+  console.log("host", process.env.MEILI_URL, "client", client);
+
   let options = {};
   if (coords && coords.lat && coords.lng) {
     options.filter = [`_geoRadius(${coords.lat}, ${coords.lng}, 10000)`];
@@ -13,6 +14,7 @@ export async function search(query, coords) {
     const results = await client.index("data").search(query, options);
     return { results };
   } catch (error) {
+    console.error("Error while performing search:", error.stack);
     return { error };
   }
 }
