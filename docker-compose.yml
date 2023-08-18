@@ -6,7 +6,7 @@ services:
     volumes:
       - .:/usr/src/app
     env_file:
-      - .environment/development/web
+      - .env
     networks:
       - default
 

@@ -1,8 +1,10 @@
 import { MeiliSearch } from "meilisearch";
 
-const client = new MeiliSearch({ host: process.env.MS_ADDRESS });
+const apiKey = process.env.MEILI_MASTER_KEY;
 
 export async function search(query, coords) {
+  const client = new MeiliSearch({ host: process.env.MEILI_URL, apiKey });
+  
   let options = {};
   if (coords && coords.lat && coords.lng) {
     options.filter = [`_geoRadius(${coords.lat}, ${coords.lng}, 10000)`];
