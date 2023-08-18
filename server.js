@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from "express";
 import { search, command } from "./search.js";
 import { buildAll } from "./lib/indexData.js";
+import { setup } from "./lib/setup.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -10,9 +11,14 @@ app.get("/", (request, response) => {
   response.send("Hi.");
 });
 
-app.get("/rebuild", (request, response) => {
+app.get("/data/setup", (request, response) => {
+  setup();
+  response.send("...setup...");
+});
+
+app.get("/data/reindex", (request, response) => {
   buildAll();
-  response.send("...Rebuilding...");
+  response.send("...Reindexing...");
 });
 
 app.get("/console", async (request, response) => {
