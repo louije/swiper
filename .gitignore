@@ -5,5 +5,7 @@
 .environment
 .DS_Store
 public/instant.html
+data/*
+!data/.keep
 dumps
 data.ms
