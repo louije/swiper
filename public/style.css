@@ -151,10 +151,10 @@ body {
   }
   .Main {
     flex-direction: row;
-    flex: 2;
   }
   .Map {
     border: none;
+    flex: 2;
   }
 }
 @media screen and (min-width: 1200px) {
