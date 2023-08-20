@@ -1,15 +1,21 @@
-import 'dotenv/config';
+import "dotenv/config";
 import express from "express";
-import { search, command } from "./search.js";
+import ejs from "ejs";
+import dirname from "./lib/util/dirname.js";
+
+const { __dirname } = dirname(import.meta.url);
+
 import { search, command } from "./lib/search.js";
 import { buildAll } from "./lib/indexData.js";
 import { setup } from "./lib/setup.js";
 
 const app = express();
-app.use(express.static("public"));
+app.set("view engine", "ejs");
 
 app.get("/", (request, response) => {
-  response.send("Hi.");
+  const mapkitToken = process.env.MAPKIT_TOKEN
+  const params = { mapkitToken };
+  response.render("index", params);
 });
 
 app.get("/data/setup", (request, response) => {
@@ -39,6 +45,8 @@ app.get("/search/", async (request, response) => {
     
   response.json({ results, error });
 });
+
+app.use(express.static("public"));
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log(`Listening on port ${listener.address().port}`);

@@ -10,7 +10,14 @@
     <link id="favicon" rel="icon" href="/swiper.png" type="image/x-icon">
     <link rel="stylesheet" href="/style.css">
 
-
+    <script
+      src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.core.js"
+      crossorigin async
+      data-callback="initMapKit"
+      data-libraries="map"
+      data-initial-token="<%- mapkitToken %>"
+    ></script>
+  
     <script src="/script.mjs" type="module" defer></script>
     
   </head>
