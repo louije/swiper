@@ -15,10 +15,12 @@ class App {
     const form = document.querySelector(".Form");
     const q = form.querySelector("[name=q]");
     const address = form.querySelector("[name=address]");
+    const results = document.querySelector(".Results");
 
     form.addEventListener("submit", this.submit.bind(this));
     q.addEventListener("input", this.submit.bind(this));
     address.addEventListener("input", this.submit.bind(this));
+    results.addEventListener("click", this.clickResult.bind(this));
   }
   async submit(event) {
     event.preventDefault();
@@ -59,18 +61,23 @@ class App {
       (hit.presentation_resume && hit.presentation_resume.trim.length
         ? hit.presentation_resume
         : hit.presentation_detail) || "";
-    let link = hit.lien_source
-      ? `<a href="${hit.lien_source}">${hit.nom}</a>`
-      : hit.nom;
     return `
-      <tr class="Item">
+      <tr class="Item" data-resultid="${hit._di_surrogate_id}">
         <td>
-          <h4 class="Name">${link}</h4>
+          <h4 class="Name">${hit.nom}</h4>
           <p class="Address">${hit.address || ""} ${hit.commune || ""}</p>
           <p class="Presentation">${presentation}</p>
         </td>
       </tr>
     `;
+  }
+  clickResult(event) {
+    const result = event.target.closest(".Item");
+    if (!result) {
+      return;
+    }
+    const id = result.dataset.resultid;
+    this.map.selectAnnotation(id);
   }
   _debounce(fn, delay) {
     let timer = null;

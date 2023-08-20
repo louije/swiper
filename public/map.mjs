@@ -96,6 +96,13 @@ export default class Map {
     });
     return annotation;
   }
+  selectAnnotation(id) {
+    const annotation = this.instance.annotations.find(a => a.data._di_surrogate_id === id);
+    if (!annotation) {
+      return;
+    }
+    this.instance.selectedAnnotation = annotation;
+  }
   zoomOnAnnotations() {
     this.instance.showItems(this.annotations);
   }
