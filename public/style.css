@@ -4,31 +4,88 @@
 body {
   font-family: sans-serif;
   line-height: 1.2rem;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.Head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem;
+}
+.SiteName {
+  font-size: 2rem;
+  margin: .5rem 0;
+}
+.Main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  padding-top: 0;
+  align-items: stretch;
+}
+.List {
+  flex: 1;
+  border-right: 1px solid #ccc;
+  overflow: scroll;
+}
+.List table {
+  margin: 0;
+}
+.Map {
+  flex: 2;
 }
 .Results {
   padding: 0;
   max-width: 45rem;
   margin: 2rem 0;
 }
-.Item {
-  list-style: none;
-  padding: 1rem;
-  border: 5px solid #efefef;
-  background: #fbfbfb;
-  margin-bottom: 1rem;
-  border-radius: .75rem;
+.Item td {
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }
-.Item summary {
-  margin: .5rem 0; 
-}
-.Item h3 {
+.Name {
   font-size: 1rem;
-  display: inline;
+  margin: 0 0 .25rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+.Address, 
+.Presentation {
+  font-size: .85rem;
+  color: #777;
 }
 .Presentation {
   margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  height: 2.5rem;
 }
 .Address {
   margin: .25rem 0;
   font-size: .75rem;
+}
+
+@media screen and (min-width: 720px) {
+  .Head {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .Main {
+    flex-direction: row;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .Map {
+    flex: 3;
+  }
 }

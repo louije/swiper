@@ -8,13 +8,14 @@
     <title>Swiper</title>
 
     <link id="favicon" rel="icon" href="/swiper.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
     <link rel="stylesheet" href="/style.css">
 
     <script
       src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.core.js"
-      crossorigin async
-      data-callback="initMapKit"
-      data-libraries="map"
+      crossorigin
+      data-libraries="map,annotations"
+      data-language="fr"
       data-initial-token="<%- mapkitToken %>"
     ></script>
   
@@ -22,29 +23,24 @@
     
   </head>
   <body>
-    <header>
-      <h1>chipeur</h1>
+    <header class="Head">
+      <h1 class="SiteName">chipeur</h1>
+      <form class="Form">
+        <input name="q" placeholder="Recherche par besoin">
+        <input name="address" placeholder="Ville, CP...">
+        <input type="submit" value="Rechercher">
+      </form>
     </header>
 
-    <form class="Form">
-      <input name="q" placeholder="Recherche par besoin">
-      <input name="address" placeholder="Ville, CP...">
-      <input type="submit" value="Rechercher">
-    </form>
-    
-    <div class="Results">
-      
-    </div>
-    <script>
-      function initMapKit() {
-        mapkit.init({
-          authorizationCallback: function(done) {
-            fetch("/mapkit-token")
-              .then(res => res.json())
-              .then(json => done(json.token));
-          }
-        });
-      }
-    </script>
+    <main class="Main">
+      <div class="List">
+        <table>
+          <tbody class="Results">
+
+          </tbody>
+        </table>
+      </div>
+      <div id="map" class="Map"></div>
+    </main>
   </body>
 </html>
