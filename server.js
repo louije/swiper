@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 
 import { search } from "./lib/search.js";
-import { buildAll } from "./lib/indexData.js";
+import { reindex } from "./lib/indexData.js";
 import { setup } from "./lib/setup.js";
 import { geocode, getToken } from "./lib/mapkit.js";
 
@@ -25,7 +25,7 @@ app.get("/data/setup", (request, response) => {
 });
 
 app.get("/data/reindex", (request, response) => {
-  buildAll();
+  reindex();
   response.send("...Reindexing...");
 });
 
