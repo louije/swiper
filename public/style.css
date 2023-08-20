@@ -16,10 +16,6 @@ body {
   flex-direction: column;
   padding: 1rem;
 }
-.SiteName {
-  font-size: 2rem;
-  margin: .5rem 0;
-}
 .Main {
   flex: 1;
   display: flex;
@@ -34,10 +30,12 @@ body {
   overflow: scroll;
 }
 .List table {
+  width: 100%;
   margin: 0;
 }
 .Map {
-  flex: 2;
+  flex: 1;
+  border-top: 1px solid #ccc;
 }
 .Results {
   padding: 0;
@@ -48,6 +46,15 @@ body {
   border-top: none;
   border-left: none;
   border-right: none;
+}
+.Placeholder.Item td {
+  height: 5rem;
+  color: #777;
+  padding: 2rem 3rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  border: none;
 }
 .Name {
   font-size: 1rem;
@@ -82,6 +89,10 @@ body {
   }
   .Main {
     flex-direction: row;
+    flex: 2;
+  }
+  .Map {
+    border: none;
   }
 }
 @media screen and (min-width: 1200px) {
