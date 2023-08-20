@@ -9,6 +9,7 @@ class App {
     this.handlers();
     this.map = new Map();
     this.map.setToFrance();
+    this.debouncedSearch = this._debounce(this.search, 500);
   }
   handlers() {
     const form = document.querySelector(".Form");
@@ -29,9 +30,10 @@ class App {
       return;
     }
 
-    this.search(query, address);
+    this.debouncedSearch(query, address);
   }
   async search(query, address) {
+    console.log("search", query, address);
     const req = `/search?q=${encodeURIComponent(
       query
     )}&address=${encodeURIComponent(address)}`;
@@ -69,5 +71,16 @@ class App {
         </td>
       </tr>
     `;
+  }
+  _debounce(fn, delay) {
+    let timer = null;
+    return function () {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    };
   }
 }
