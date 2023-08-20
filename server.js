@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from "express";
 import { search, command } from "./search.js";
+import { search, command } from "./lib/search.js";
 import { buildAll } from "./lib/indexData.js";
 import { setup } from "./lib/setup.js";
 
