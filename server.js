@@ -29,11 +29,6 @@ app.get("/data/reindex", (request, response) => {
   response.send("...Reindexing...");
 });
 
-app.get("/geo/:address", async (request, response) => {
-  const address = decodeURIComponent(request.params.address);
-  response.send(await geocode(address));
-});
-
 app.get("/search/", async (request, response) => {
   const q = request.query.q;
   const address = request.query.address;
