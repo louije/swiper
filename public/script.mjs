@@ -9,26 +9,24 @@ class App {
   handlers() {
     const form = document.querySelector(".Form");
     const q = form.querySelector("[name=q]");
-    const place = form.querySelector("[name=place]");
+    const address = form.querySelector("[name=address]");
     
     form.addEventListener("submit", this.submit.bind(this));
     q.addEventListener("input", this.submit.bind(this));
-    place.addEventListener("input", this.submit.bind(this));
+    address.addEventListener("input", this.submit.bind(this));
   }
   async submit(event) {
     event.preventDefault();
     const form = document.querySelector(".Form");
     const data = new FormData(form);
     const query = data.get("q");
+    const address = data.get("address");
     if (!query || query.trim().length === 0) { return; }
 
-    const place = data.get("place");
-    const [lat, lng] = place.split(",");
-
-    this.search(query, { lat, lng });
+    this.search(query, address);
   }
-  async search(query, { lat, lng }) {
-    const req = `/search?q=${encodeURIComponent(query)}&coords=${lat},${lng}`;
+  async search(query, address) {
+    const req = `/search?q=${encodeURIComponent(query)}&address=${encodeURIComponent(address)}`;
     const res = await fetch(req);
     const { results, error } = await res.json();
     if (error) {

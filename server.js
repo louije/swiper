@@ -1,21 +1,22 @@
 import "dotenv/config";
 import express from "express";
-import ejs from "ejs";
-import dirname from "./lib/util/dirname.js";
 
-const { __dirname } = dirname(import.meta.url);
-
-import { search, command } from "./lib/search.js";
+import { search } from "./lib/search.js";
 import { buildAll } from "./lib/indexData.js";
 import { setup } from "./lib/setup.js";
+import { geocode, getToken } from "./lib/mapkit.js";
 
 const app = express();
 app.set("view engine", "ejs");
 
 app.get("/", (request, response) => {
-  const mapkitToken = process.env.MAPKIT_TOKEN
+  const mapkitToken = getToken();
   const params = { mapkitToken };
   response.render("index", params);
+});
+
+app.get("/mapkit-token", (request, response) => {
+  response.json({ token: getToken() });
 });
 
 app.get("/data/setup", (request, response) => {
@@ -28,22 +29,21 @@ app.get("/data/reindex", (request, response) => {
   response.send("...Reindexing...");
 });
 
-app.get("/console", async (request, response) => {
-  const results = await command(request.query);
-  response.send(`<pre>${JSON.stringify(results, null, 2)}</pre>`);
+app.get("/geo/:address", async (request, response) => {
+  const address = decodeURIComponent(request.params.address);
+  response.send(await geocode(address));
 });
 
 app.get("/search/", async (request, response) => {
   const q = request.query.q;
-  const coords = request.query.coords;
-  let lat, lng;
-  if (coords) {
-    [lat, lng] = coords.split(",");
-  }
-  const options = (lat && lng) ? { lat, lng } : {};
-  const { results, error } = await search(q, options);
+  const address = request.query.address;
+
+  const { coordinate, error: geocodingError } = await geocode(address);
+
+  const options = coordinate;
+  const { results, error: searchError } = await search(q, options);
     
-  response.json({ results, error });
+  response.json({ results, searchError, geocodingError });
 });
 
 app.use(express.static("public"));

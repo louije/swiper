@@ -28,24 +28,23 @@
 
     <form class="Form">
       <input name="q" placeholder="Recherche par besoin">
-      <select name="place">
-        
-          <option value="">France</option>
-          <option value="" disabled></option>
-          <option value="44.8378,-0.5792">Bordeaux</option>
-          <option value="48.3904,-4.4861">Brest</option>
-          <option value="47.0995,5.4902">Dole</option>
-          <option value="50.6292,3.0573">Lille</option>
-          <option value="45.75,4.85">Lyon</option>
-          <option value="48.8566,2.3522">Paris</option>
-          <option value="43.6043,1.4437">Toulouse</option>
-        
-      </select>
+      <input name="address" placeholder="Ville, CP...">
       <input type="submit" value="Rechercher">
     </form>
     
     <div class="Results">
       
     </div>
+    <script>
+      function initMapKit() {
+        mapkit.init({
+          authorizationCallback: function(done) {
+            fetch("/mapkit-token")
+              .then(res => res.json())
+              .then(json => done(json.token));
+          }
+        });
+      }
+    </script>
   </body>
 </html>
