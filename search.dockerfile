@@ -1,0 +1,6 @@
+FROM getmeili/meilisearch:v1.3
+
+ENV MEILI_HTTP_PAYLOAD_SIZE_LIMIT 500MB
+VOLUME /meili_data
+
+EXPOSE 7700
