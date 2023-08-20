@@ -33,6 +33,49 @@ export default class Map {
     this.annotations = this.annotations.filter(a => a); // filter empty elements
     this.annotations.forEach(a => this.instance.addAnnotation(a));
   }
+  calloutDelegate() {
+    function title(annotation) {
+      let link;
+      if (annotation.data.lien_source) {
+        link = `<a class="AnnotationLink" href="${annotation.data.lien_source}" target="_blank">➡️</a>`;
+      }
+      return `
+        <div class="AnnotationTitle">
+          <h1>${annotation.title}</h1>
+          ${link || ""}
+        </div>
+      `;
+    }
+    function presentation(annotation) {
+      return annotation.subtitle ? `<div class="u-GradientContainer"><p class="AnnotationPrez">${annotation.subtitle}</p></div>` : "";
+    }
+    function contact(annotation) {
+      let contactModes = [];
+      if (annotation.data.telephone) {
+        contactModes.push(`<a href="tel:${annotation.data.telephone}">${annotation.data.telephone}</a>`);
+      }
+      if (annotation.data.courriel) {
+        contactModes.push(`<a href="mailto:${annotation.data.courriel}">${annotation.data.courriel}</a>`);
+      }
+      return contactModes.length > 0 ? `<p class="AnnotationContact">${contactModes.join(" / ")}</p>` : "";
+    }
+
+    return {
+      calloutElementForAnnotation: (annotation) => {
+        console.log(annotation, annotation.data);
+        const html = `
+          <div class="Annotation">
+            ${title(annotation)}
+            ${presentation(annotation)}
+            ${contact(annotation)}
+          </div>
+        `
+        let parser = new DOMParser();
+        let doc = parser.parseFromString(html, 'text/html');
+        return doc.body.firstChild;
+      },
+    };
+  }
   _createStructureAnnotation(structure) {
     const mapkit = window.mapkit;
   
@@ -47,7 +90,9 @@ export default class Map {
       glyphText: "ℹ︎",
       color: "#6a6af4",
       glyphColor: "white",
-      clusteringIdentifier: "cluster" // code_postal is too precise, there's still overlap
+      clusteringIdentifier: "cluster", // code_postal is too precise, there's still overlap
+      callout: this.calloutDelegate(),
+      data: structure,
     });
     return annotation;
   }
