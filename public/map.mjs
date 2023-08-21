@@ -9,8 +9,16 @@ export default class Map {
       },
       language: "fr",
     });
+    this.initializeMap()
+  }
 
-    this.instance = new window.mapkit.Map("map");
+  initializeMap() {
+    try {
+      this.instance = new window.mapkit.Map("map");
+    } catch (e) {
+      // mapkit is not ready yet
+      setTimeout(() => this.initializeMap(), 500);
+    }
   }
 
   setToFrance() {

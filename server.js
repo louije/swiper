@@ -7,13 +7,8 @@ import { setup } from "./lib/setup.js";
 import { geocode, getToken } from "./lib/mapkit.js";
 
 const app = express();
-app.set("view engine", "ejs");
 
-app.get("/", (request, response) => {
-  const mapkitToken = getToken();
-  const params = { mapkitToken };
-  response.render("index", params);
-});
+app.use(express.static("public"));
 
 app.get("/mapkit-token", (request, response) => {
   response.json({ token: getToken() });
@@ -41,7 +36,6 @@ app.get("/search/", async (request, response) => {
   response.json({ results, searchError, geocodingError });
 });
 
-app.use(express.static("public"));
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log(`Listening on port ${listener.address().port}`);
